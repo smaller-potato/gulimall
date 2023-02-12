@@ -1,13 +1,29 @@
 package com.tudoupro.gulimall.ware;
 
-import org.junit.jupiter.api.Test;
+
+import com.tudoupro.gulimall.ware.entity.PurchaseEntity;
+import com.tudoupro.gulimall.ware.service.PurchaseService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.math.BigDecimal;
 
 @SpringBootTest
-class GulimallWareApplicationTests {
+@RunWith(SpringRunner.class)
+public class GulimallWareApplicationTests {
+
+    @Autowired
+    PurchaseService purchaseService;
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
+        PurchaseEntity purchaseEntity = new PurchaseEntity();
+        purchaseEntity.setAmount(new BigDecimal("123"));
+        purchaseService.save(purchaseEntity);
+        System.out.println("保存成功");
     }
 
 }
