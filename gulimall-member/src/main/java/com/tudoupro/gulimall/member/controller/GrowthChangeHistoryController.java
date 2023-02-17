@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.tudoupro.gulimall.member.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,14 @@ import com.tudoupro.common.utils.R;
 public class GrowthChangeHistoryController {
     @Autowired
     private GrowthChangeHistoryService growthChangeHistoryService;
+
+    @Autowired
+    private CouponFeignService couponFeignService;
+
+    @RequestMapping("/feign/test")
+    public R testFeign() {
+        return couponFeignService.memeberCoupons();
+    }
 
     /**
      * 列表

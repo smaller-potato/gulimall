@@ -1,10 +1,14 @@
 package com.tudoupro.gulimall.coupon.controller;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +30,26 @@ import com.tudoupro.common.utils.R;
  * @date 2023-02-12 17:28:27
  */
 @RestController
+@RefreshScope
 @RequestMapping("coupon/coupon")
 public class CouponController {
     @Autowired
     private CouponService couponService;
+
+    @Value("${smaller-potato}")
+    String smallerPotato;
+
+    @RequestMapping("/alibaba/nacos/config/test")
+    public R alibabaNacosConfigTest(){
+        return R.ok().put("smaller-potato",smallerPotato);
+    }
+
+    @RequestMapping("/member/list")
+    public R memeberCoupons(){
+        CouponEntity couponEntity = new CouponEntity();
+        couponEntity.setAmount(new BigDecimal(10));
+        return  R.ok().put("coupon",Arrays.asList(couponEntity));
+    }
 
     /**
      * 列表
